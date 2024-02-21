@@ -1,4 +1,4 @@
-import { usereducer } from "react";
+import { useReducer } from "react";
 import CartContext from "./cart-context";
 
 const defaultCartState = {
@@ -20,7 +20,7 @@ const cartReducer = (state, action) => {
 };
 
 const CartProvider = (props) => {
-  const [cartState, dispatchCartAction] = usereducer(
+  const [cartState, dispatchCartAction] = useReducer(
     cartReducer,
     defaultCartState
   );
