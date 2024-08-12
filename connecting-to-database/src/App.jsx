@@ -21,16 +21,28 @@ function App() {
       }
 
       const data = await response.json();
+      console.log(data);
 
-      const transformedMovies = data.results.map((movieData) => {
-        return {
-          id: movieData.episode_id,
-          title: movieData.title,
-          openingText: movieData.opening_crawl,
-          releaseDate: movieData.release_date,
-        };
-      });
-      setMovies(transformedMovies);
+      const loadedMovies = [];
+
+      for (const key in data) {
+        loadedMovies.push({
+          id: data[key].key,
+          title: data[key].title,
+          releadeDate: data[key].releadeDate,
+          openingText: data[key].openingText,
+        });
+      }
+
+      // const transformedMovies = data.results.map((movieData) => {
+      //   return {
+      //     id: movieData.episode_id,
+      //     title: movieData.title,
+      //     openingText: movieData.opening_crawl,
+      //     releaseDate: movieData.release_date,
+      //   };
+      // });
+      setMovies(loadedMovies);
     } catch (error) {
       setError(error.message);
     }
@@ -41,7 +53,17 @@ function App() {
     fetchMoviesHandler();
   }, [fetchMoviesHandler]);
 
-  function addMovieHandler(movie) {
+  async function addMovieHandler(movie) {
+    const response = await fetch(
+      "https://http-request-29a6a-default-rtdb.firebaseio.com/movies.json",
+      {
+        method: "POST",
+        body: JSON.stringify(movie),
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    );
     console.log(movie);
   }
 
