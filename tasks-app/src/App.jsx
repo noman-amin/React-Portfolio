@@ -19,7 +19,6 @@ function App() {
       if (!response.ok) {
         throw new Error("Request failed!");
       }
-
       const data = await response.json();
 
       const loadedTasks = [];
@@ -30,6 +29,7 @@ function App() {
 
       setTasks(loadedTasks);
     } catch (err) {
+
       setError(err.message || "Something went wrong!");
     }
     setIsLoading(false);
@@ -54,6 +54,6 @@ function App() {
       />
     </React.Fragment>
   );
-}
+};
 
 export default App;
